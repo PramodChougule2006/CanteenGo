@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "599415040524",
+    "project_id": "canteengo-30c31",
+    "storage_bucket": "canteengo-30c31.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:599415040524:android:a21cd0c00b5d240f3c1c29",
+        "android_client_info": {
+          "package_name": "com.example.canteengo"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDPAvZ4xP3cAczR0_GiOl0A1NaD-MD76-I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

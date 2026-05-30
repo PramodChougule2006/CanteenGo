@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FAF9F6"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="24dp">
+
+        <!-- Header -->
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Payment"
+            android:textColor="#2B2D42"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            android:layout_marginTop="12dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Choose your preferred payment method"
+            android:textColor="#7B7B7B"
+            android:textSize="15sp"
+            android:layout_marginTop="6dp"
+            android:layout_marginBottom="28dp" />
+
+        <!-- Payment Card -->
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            app:cardCornerRadius="24dp"
+            app:cardElevation="3dp"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            app:cardBackgroundColor="#FFFFFF">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="22dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Select Payment Method"
+                    android:textColor="#2B2D42"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="18dp" />
+
+                <!-- IMPORTANT -->
+                <!-- RadioButtons MUST stay INSIDE RadioGroup -->
+
+                <RadioGroup
+                    android:id="@+id/paymentGroup"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <RadioButton
+                        android:id="@+id/upiOption"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="14dp"
+                        android:background="#F6F6F6"
+                        android:buttonTint="#228B22"
+                        android:padding="18dp"
+                        android:text="UPI Payment"
+                        android:textColor="#2B2D42"
+                        android:textSize="16sp" />
+
+                    <RadioButton
+                        android:id="@+id/cashOption"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="#F6F6F6"
+                        android:buttonTint="#228B22"
+                        android:padding="18dp"
+                        android:text="Cash Payment"
+                        android:textColor="#2B2D42"
+                        android:textSize="16sp" />
+
+                </RadioGroup>
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <!-- Pay Button -->
+
+        <Button
+            android:id="@+id/payBtn"
+            android:layout_width="match_parent"
+            android:layout_height="58dp"
+            android:backgroundTint="#228B22"
+            android:text="Pay Now"
+            android:textAllCaps="false"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+</ScrollView>
