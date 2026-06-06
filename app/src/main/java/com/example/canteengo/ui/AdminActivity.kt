@@ -16,8 +16,6 @@ class AdminActivity : Activity() {
     lateinit var db: FirebaseFirestore
     lateinit var auth: FirebaseAuth
 
-    lateinit var menuListView: ListView
-
     val menuList = ArrayList<String>()
     val menuIds = ArrayList<String>()
 
@@ -45,8 +43,12 @@ class AdminActivity : Activity() {
         val nameEt = findViewById<EditText>(R.id.canteenNameEt)
         val collegeEt = findViewById<EditText>(R.id.collegeNameEt)
         val locationEt = findViewById<EditText>(R.id.locationEt)
+        val mobileEt = findViewById<EditText>(R.id.ownerMobileEt)
+        val upiIdEt = findViewById<EditText>(R.id.upiIdEt)
 
         val saveBtn = findViewById<Button>(R.id.saveBtn)
+        val adminTitleTv = findViewById<TextView>(R.id.adminTitleTv)
+        val adminControlsLayout = findViewById<LinearLayout>(R.id.adminControlsLayout)
 
         val itemNameEt = findViewById<EditText>(R.id.itemNameEt)
         val itemPriceEt = findViewById<EditText>(R.id.itemPriceEt)
@@ -54,8 +56,6 @@ class AdminActivity : Activity() {
         val itemTypeSpinner = findViewById<Spinner>(R.id.itemTypeSpinner)
 
         val addItemBtn = findViewById<Button>(R.id.addItemBtn)
-
-        menuListView = findViewById(R.id.menuListView)
 
         checkCanteenExists(currentUser.uid)
 
@@ -71,14 +71,44 @@ class AdminActivity : Activity() {
 
         val scanBtn = findViewById<Button>(R.id.scanBtn)
 
+        // ── Accordion views ──────────────────────────────────
+        val canteenInfoHeader   = findViewById<LinearLayout>(R.id.canteenInfoHeader)
+        val canteenInfoContent  = findViewById<LinearLayout>(R.id.canteenInfoContent)
+        val canteenInfoArrow    = findViewById<TextView>(R.id.canteenInfoArrow)
+
+        val menuManagementHeader  = findViewById<LinearLayout>(R.id.menuManagementHeader)
+        val menuManagementContent = findViewById<LinearLayout>(R.id.menuManagementContent)
+        val menuManagementArrow   = findViewById<TextView>(R.id.menuManagementArrow)
+
+        val verifyOrdersHeader  = findViewById<LinearLayout>(R.id.verifyOrdersHeader)
+        val verifyOrdersContent = findViewById<LinearLayout>(R.id.verifyOrdersContent)
+        val verifyOrdersArrow   = findViewById<TextView>(R.id.verifyOrdersArrow)
+
+        val viewItemsBtn = findViewById<Button>(R.id.viewItemsBtn)
+
+        // ── Accordion toggle click listeners ─────────────────
+        canteenInfoHeader.setOnClickListener {
+            toggleSection(canteenInfoContent, canteenInfoArrow)
+        }
+
+        menuManagementHeader.setOnClickListener {
+            toggleSection(menuManagementContent, menuManagementArrow)
+        }
+
+        verifyOrdersHeader.setOnClickListener {
+            toggleSection(verifyOrdersContent, verifyOrdersArrow)
+        }
+
+        // ── View current items list ───────────────────────────
+        viewItemsBtn.setOnClickListener {
+            showMenuItemsDialog()
+        }
+
         scanBtn.setOnClickListener {
-
             val integrator = IntentIntegrator(this)
-
             integrator.setPrompt("Scan Order QR")
             integrator.setBeepEnabled(true)
             integrator.setOrientationLocked(true)
-
             integrator.initiateScan()
         }
 
@@ -146,19 +176,10 @@ class AdminActivity : Activity() {
             val name = nameEt.text.toString().trim()
             val college = collegeEt.text.toString().trim()
             val location = locationEt.text.toString().trim()
+            val mobile = mobileEt.text.toString().trim()
+            val upiId = upiIdEt.text.toString().trim()
 
-            if (currentCanteenId != null) {
-
-                Toast.makeText(
-                    this,
-                    "Canteen already exists ❌",
-                    Toast.LENGTH_SHORT
-                ).show()
-
-                return@setOnClickListener
-            }
-
-            if (name.isEmpty() || college.isEmpty() || location.isEmpty()) {
+            if (name.isEmpty() || college.isEmpty() || location.isEmpty() || mobile.isEmpty() || upiId.isEmpty()) {
 
                 Toast.makeText(
                     this,
@@ -173,31 +194,59 @@ class AdminActivity : Activity() {
                 "name" to name,
                 "college" to college,
                 "location" to location,
+                "mobile" to mobile,
+                "upiId" to upiId,
                 "ownerId" to currentUser.uid
             )
 
-            db.collection("canteens")
-                .add(canteenMap)
-                .addOnSuccessListener { documentRef ->
+            val canteenId = currentCanteenId
+            if (canteenId != null) {
+                db.collection("canteens")
+                    .document(canteenId)
+                    .set(canteenMap)
+                    .addOnSuccessListener {
+                        Toast.makeText(
+                            this,
+                            "Canteen Details Updated ✅",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        adminTitleTv.text = name
+                    }
+                    .addOnFailureListener {
+                        Toast.makeText(
+                            this,
+                            "Failed to update details",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+            } else {
+                db.collection("canteens")
+                    .add(canteenMap)
+                    .addOnSuccessListener { documentRef ->
 
-                    currentCanteenId = documentRef.id
+                        currentCanteenId = documentRef.id
 
-                    Toast.makeText(
-                        this,
-                        "Canteen Added ✅",
-                        Toast.LENGTH_SHORT
-                    ).show()
+                        Toast.makeText(
+                            this,
+                            "Canteen Added ✅",
+                            Toast.LENGTH_SHORT
+                        ).show()
 
-                    loadMenu()
-                }
-                .addOnFailureListener {
+                        saveBtn.text = "Update Canteen Details"
+                        adminTitleTv.text = name
+                        adminControlsLayout.visibility = LinearLayout.VISIBLE
 
-                    Toast.makeText(
-                        this,
-                        "Failed to save canteen",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
+                        loadMenu()
+                    }
+                    .addOnFailureListener {
+
+                        Toast.makeText(
+                            this,
+                            "Failed to save canteen",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+            }
         }
 
         addItemBtn.setOnClickListener {
@@ -266,55 +315,85 @@ class AdminActivity : Activity() {
                     ).show()
                 }
         }
+    }
 
-        menuListView.setOnItemLongClickListener { _, _, position, _ ->
+    // ─── Toggle accordion section ────────────────────────────────────────────
+    private fun toggleSection(contentView: LinearLayout, arrowTv: TextView) {
+        if (contentView.visibility == android.view.View.VISIBLE) {
+            contentView.visibility = android.view.View.GONE
+            arrowTv.text = "▶"
+        } else {
+            contentView.visibility = android.view.View.VISIBLE
+            arrowTv.text = "▼"
+        }
+    }
 
-            val canteenId = currentCanteenId ?: return@setOnItemLongClickListener true
-
-            val menuId = menuIds[position]
-
-            db.collection("canteens")
-                .document(canteenId)
-                .collection("menu")
-                .document(menuId)
-                .delete()
-                .addOnSuccessListener {
-
-                    Toast.makeText(
-                        this,
-                        "Item Deleted ❌",
-                        Toast.LENGTH_SHORT
-                    ).show()
-
-                    loadMenu()
-                }
-
-            true
+    // ─── Show menu items in scrollable dialog ────────────────────────────────
+    private fun showMenuItemsDialog() {
+        if (menuList.isEmpty()) {
+            android.widget.Toast.makeText(this, "No menu items yet", android.widget.Toast.LENGTH_SHORT).show()
+            return
         }
 
-        menuListView.setOnItemClickListener { _, _, position, _ ->
+        val items = menuList.toTypedArray()
+        AlertDialog.Builder(this)
+            .setTitle("Current Menu Items")
+            .setItems(items) { _, position ->
+                val menuId  = menuIds[position]
+                val itemText = menuList[position]
+                val parts   = itemText.split(" - ₹")
+                val oldName  = parts.getOrNull(0) ?: ""
+                val oldPrice = parts.getOrNull(1) ?: "0"
+                val options = arrayOf("Edit Item", "Delete Item")
+                AlertDialog.Builder(this)
+                    .setTitle("Manage: $oldName")
+                    .setItems(options) { _, which ->
+                        if (which == 0) showEditDialog(menuId, oldName, oldPrice)
+                        else            showDeleteConfirmationDialog(menuId)
+                    }
+                    .setNegativeButton("Cancel", null)
+                    .show()
+            }
+            .setNegativeButton("Close", null)
+            .show()
+    }
 
-            val menuId = menuIds[position]
-
-            val itemText = menuList[position]
-
-            val parts = itemText.split(" - ₹")
-
-            val oldName = parts.getOrNull(0) ?: ""
-
-            val oldPrice = parts.getOrNull(1) ?: "0"
-
-            showEditDialog(menuId, oldName, oldPrice)
-        }
+    private fun showDeleteConfirmationDialog(menuId: String) {
+        val canteenId = currentCanteenId ?: return
+        AlertDialog.Builder(this)
+            .setTitle("Delete Item")
+            .setMessage("Are you sure you want to delete this menu item?")
+            .setPositiveButton("Delete") { _, _ ->
+                db.collection("canteens")
+                    .document(canteenId)
+                    .collection("menu")
+                    .document(menuId)
+                    .delete()
+                    .addOnSuccessListener {
+                        Toast.makeText(
+                            this,
+                            "Item Deleted ❌",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        loadMenu()
+                    }
+            }
+            .setNegativeButton("Cancel", null)
+            .show()
     }
 
     private fun checkCanteenExists(userId: String) {
 
-        val canteenForm =
-            findViewById<LinearLayout>(R.id.canteenFormLayout)
+        val adminControlsLayout =
+            findViewById<LinearLayout>(R.id.adminControlsLayout)
 
-        val menuLayout =
-            findViewById<LinearLayout>(R.id.menuLayout)
+        val nameEt = findViewById<EditText>(R.id.canteenNameEt)
+        val collegeEt = findViewById<EditText>(R.id.collegeNameEt)
+        val locationEt = findViewById<EditText>(R.id.locationEt)
+        val mobileEt = findViewById<EditText>(R.id.ownerMobileEt)
+        val upiIdEt = findViewById<EditText>(R.id.upiIdEt)
+        val saveBtn = findViewById<Button>(R.id.saveBtn)
+        val adminTitleTv = findViewById<TextView>(R.id.adminTitleTv)
 
         db.collection("canteens")
             .whereEqualTo("ownerId", userId)
@@ -327,15 +406,24 @@ class AdminActivity : Activity() {
 
                     currentCanteenId = doc.id
 
-                    canteenForm.visibility = LinearLayout.GONE
-                    menuLayout.visibility = LinearLayout.VISIBLE
+                    val name = doc.getString("name") ?: ""
+                    nameEt.setText(name)
+                    collegeEt.setText(doc.getString("college") ?: "")
+                    locationEt.setText(doc.getString("location") ?: "")
+                    mobileEt.setText(doc.getString("mobile") ?: "")
+                    upiIdEt.setText(doc.getString("upiId") ?: "")
+
+                    adminTitleTv.text = name
+                    saveBtn.text = "Update Canteen Details"
+
+                    adminControlsLayout.visibility = LinearLayout.VISIBLE
 
                     loadMenu()
 
                 } else {
-
-                    canteenForm.visibility = LinearLayout.VISIBLE
-                    menuLayout.visibility = LinearLayout.GONE
+                    adminControlsLayout.visibility = LinearLayout.GONE
+                    saveBtn.text = "Save Canteen Details"
+                    adminTitleTv.text = "Canteen Admin"
                 }
             }
     }
@@ -363,14 +451,6 @@ class AdminActivity : Activity() {
 
                     menuIds.add(doc.id)
                 }
-
-                val adapter = ArrayAdapter(
-                    this,
-                    android.R.layout.simple_list_item_1,
-                    menuList
-                )
-
-                menuListView.adapter = adapter
             }
     }
 

@@ -38,7 +38,12 @@ class TokenActivity : Activity() {
 
         orderTv.text = "Order ID: $orderId"
 
-        amountTv.text = "Amount: ₹$amount"
+        val paymentStatus = intent.getStringExtra("paymentStatus") ?: ""
+        if (paymentStatus.isNotEmpty()) {
+            amountTv.text = "Amount: ₹$amount ($paymentStatus)"
+        } else {
+            amountTv.text = "Amount: ₹$amount"
+        }
 
         val items =
             intent.getStringArrayListExtra("items")
@@ -50,6 +55,7 @@ class TokenActivity : Activity() {
         val qrData = """
 Order:$orderId
 Amount:₹$amount
+Payment:$paymentStatus
 Items:
 - $itemsText
         """.trimIndent()

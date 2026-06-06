@@ -1,254 +1,651 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FAF9F6"
-    android:fillViewport="true">
+    android:background="@color/colorBackground"
+    android:orientation="vertical">
 
+    <!-- ===== ADMIN HERO HEADER ===== -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/bg_hero_gradient"
         android:orientation="vertical"
-        android:padding="20dp">
-
-        <!-- Header -->
+        android:paddingStart="24dp"
+        android:paddingTop="44dp"
+        android:paddingEnd="24dp"
+        android:paddingBottom="28dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="Admin Panel ⚙️"
+            android:textColor="#FFE8DC"
+            android:textSize="13sp" />
+
+        <TextView
+            android:id="@+id/adminTitleTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:fontFamily="sans-serif-medium"
             android:text="Canteen Admin"
-            android:textColor="#2B2D42"
+            android:textColor="#FFFFFF"
             android:textSize="28sp"
-            android:textStyle="bold"
-            android:letterSpacing="0.02"
-            android:layout_marginBottom="4dp" />
+            android:textStyle="bold" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
             android:text="Manage canteen details, menu and orders"
-            android:textColor="#7A7A7A"
-            android:textSize="14sp"
-            android:layout_marginBottom="24dp" />
-
-        <!-- Canteen Details Card -->
-
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
-            app:cardCornerRadius="20dp"
-            app:cardElevation="4dp"
-            app:cardBackgroundColor="#FFFFFF">
-
-            <LinearLayout
-                android:id="@+id/canteenFormLayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="20dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Canteen Information"
-                    android:textColor="#2B2D42"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:layout_marginBottom="16dp" />
-
-                <EditText
-                    android:id="@+id/canteenNameEt"
-                    android:layout_width="match_parent"
-                    android:layout_height="56dp"
-                    android:layout_marginBottom="14dp"
-                    android:background="@android:drawable/editbox_background"
-                    android:hint="Canteen Name"
-                    android:paddingHorizontal="16dp"
-                    android:textColor="#2B2D42"
-                    android:textColorHint="#9E9E9E" />
-
-                <EditText
-                    android:id="@+id/collegeNameEt"
-                    android:layout_width="match_parent"
-                    android:layout_height="56dp"
-                    android:layout_marginBottom="14dp"
-                    android:background="@android:drawable/editbox_background"
-                    android:hint="College Name"
-                    android:paddingHorizontal="16dp"
-                    android:textColor="#2B2D42"
-                    android:textColorHint="#9E9E9E" />
-
-                <EditText
-                    android:id="@+id/locationEt"
-                    android:layout_width="match_parent"
-                    android:layout_height="56dp"
-                    android:background="@android:drawable/editbox_background"
-                    android:hint="Location"
-                    android:paddingHorizontal="16dp"
-                    android:textColor="#2B2D42"
-                    android:textColorHint="#9E9E9E" />
-
-                <Button
-                    android:id="@+id/saveBtn"
-                    android:layout_width="match_parent"
-                    android:layout_height="54dp"
-                    android:layout_marginTop="20dp"
-                    android:backgroundTint="#228B22"
-                    android:text="Save Canteen"
-                    android:textAllCaps="false"
-                    android:textColor="#FFFFFF"
-                    android:textSize="15sp"
-                    android:textStyle="bold" />
-
-            </LinearLayout>
-
-        </androidx.cardview.widget.CardView>
-
-        <!-- Menu Management Card -->
-
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
-            app:cardCornerRadius="20dp"
-            app:cardElevation="4dp"
-            app:cardBackgroundColor="#FFFFFF">
-
-            <LinearLayout
-                android:id="@+id/menuLayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="20dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Menu Management"
-                    android:textColor="#2B2D42"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:layout_marginBottom="16dp" />
-
-                <EditText
-                    android:id="@+id/itemNameEt"
-                    android:layout_width="match_parent"
-                    android:layout_height="56dp"
-                    android:layout_marginBottom="14dp"
-                    android:background="@android:drawable/editbox_background"
-                    android:hint="Item Name"
-                    android:paddingHorizontal="16dp"
-                    android:textColor="#2B2D42"
-                    android:textColorHint="#9E9E9E" />
-
-                <EditText
-                    android:id="@+id/itemPriceEt"
-                    android:layout_width="match_parent"
-                    android:layout_height="56dp"
-                    android:layout_marginBottom="14dp"
-                    android:background="@android:drawable/editbox_background"
-                    android:hint="Price"
-                    android:inputType="number"
-                    android:paddingHorizontal="16dp"
-                    android:textColor="#2B2D42"
-                    android:textColorHint="#9E9E9E" />
-
-                <Spinner
-                    android:id="@+id/itemTypeSpinner"
-                    android:layout_width="match_parent"
-                    android:layout_height="56dp"
-                    android:layout_marginBottom="16dp"
-                    android:background="#F4F4F4"
-                    android:paddingHorizontal="12dp" />
-
-                <Button
-                    android:id="@+id/addItemBtn"
-                    android:layout_width="match_parent"
-                    android:layout_height="54dp"
-                    android:backgroundTint="#B7E4C7"
-                    android:text="Add Menu Item"
-                    android:textAllCaps="false"
-                    android:textColor="#2B2D42"
-                    android:textSize="15sp"
-                    android:textStyle="bold" />
-
-                <ListView
-                    android:id="@+id/menuListView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:divider="#ECECEC"
-                    android:dividerHeight="10dp" />
-
-            </LinearLayout>
-
-        </androidx.cardview.widget.CardView>
-
-        <!-- Order Verification Card -->
-
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:cardCornerRadius="20dp"
-            app:cardElevation="4dp"
-            app:cardBackgroundColor="#FFFFFF">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="20dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Verify Orders"
-                    android:textColor="#2B2D42"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:layout_marginBottom="18dp" />
-
-                <Button
-                    android:id="@+id/scanBtn"
-                    android:layout_width="match_parent"
-                    android:layout_height="54dp"
-                    android:backgroundTint="#A9D6E5"
-                    android:text="Scan QR Code"
-                    android:textAllCaps="false"
-                    android:textColor="#2B2D42"
-                    android:textSize="15sp"
-                    android:textStyle="bold" />
-
-                <EditText
-                    android:id="@+id/orderIdEt"
-                    android:layout_width="match_parent"
-                    android:layout_height="56dp"
-                    android:layout_marginTop="16dp"
-                    android:background="@android:drawable/editbox_background"
-                    android:hint="Enter Order ID"
-                    android:paddingHorizontal="16dp"
-                    android:textColor="#2B2D42"
-                    android:textColorHint="#9E9E9E" />
-
-                <Button
-                    android:id="@+id/verifyBtn"
-                    android:layout_width="match_parent"
-                    android:layout_height="54dp"
-                    android:layout_marginTop="16dp"
-                    android:backgroundTint="#FFD6BA"
-                    android:text="Mark as Completed"
-                    android:textAllCaps="false"
-                    android:textColor="#2B2D42"
-                    android:textSize="15sp"
-                    android:textStyle="bold" />
-
-            </LinearLayout>
-
-        </androidx.cardview.widget.CardView>
+            android:textColor="#FFE8DC"
+            android:textSize="13sp" />
 
     </LinearLayout>
 
-</ScrollView>
+    <!-- ===== SCROLLABLE CONTENT SHEET ===== -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_bottom_sheet"
+        android:fillViewport="false">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingStart="16dp"
+            android:paddingTop="24dp"
+            android:paddingEnd="16dp"
+            android:paddingBottom="32dp">
+
+            <!-- ===== SECTION 1: CANTEEN DETAILS ===== -->
+            <LinearLayout
+                android:id="@+id/canteenInfoHeader"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingStart="4dp"
+                android:paddingBottom="12dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:background="?attr/selectableItemBackground">
+
+                <LinearLayout
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:background="@drawable/bg_hero_icon_circle"
+                    android:backgroundTint="@color/colorPrimaryLight"
+                    android:gravity="center">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="🏪"
+                        android:textSize="16sp" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="12dp"
+                    android:fontFamily="sans-serif-medium"
+                    android:text="Canteen Information"
+                    android:textColor="@color/colorOnSurface"
+                    android:textSize="17sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/canteenInfoArrow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="4dp"
+                    android:text="▼"
+                    android:textColor="@color/colorOnSurfaceVariant"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
+
+            <!-- Canteen Info collapsible content -->
+            <LinearLayout
+                android:id="@+id/canteenInfoContent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="visible">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="24dp"
+                app:cardBackgroundColor="@color/colorSurface"
+                app:cardCornerRadius="20dp"
+                app:cardElevation="4dp">
+
+                <!-- ID preserved: canteenFormLayout -->
+                <LinearLayout
+                    android:id="@+id/canteenFormLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="20dp">
+
+                    <!-- Canteen Name Label -->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:fontFamily="sans-serif-medium"
+                        android:text="Canteen Name"
+                        android:textColor="@color/colorOnSurface"
+                        android:textSize="13sp"
+                        android:textStyle="bold" />
+
+                    <!-- ID preserved: canteenNameEt -->
+                    <EditText
+                        android:id="@+id/canteenNameEt"
+                        android:layout_width="match_parent"
+                        android:layout_height="56dp"
+                        android:layout_marginBottom="16dp"
+                        android:background="@drawable/bg_input_field"
+                        android:hint="e.g. Main Block Canteen"
+                        android:paddingStart="18dp"
+                        android:paddingEnd="18dp"
+                        android:textColor="@color/colorOnSurface"
+                        android:textColorHint="@color/colorTextHint"
+                        android:textSize="14sp" />
+
+                    <!-- College Name Label -->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:fontFamily="sans-serif-medium"
+                        android:text="College Name"
+                        android:textColor="@color/colorOnSurface"
+                        android:textSize="13sp"
+                        android:textStyle="bold" />
+
+                    <!-- ID preserved: collegeNameEt -->
+                    <EditText
+                        android:id="@+id/collegeNameEt"
+                        android:layout_width="match_parent"
+                        android:layout_height="56dp"
+                        android:layout_marginBottom="16dp"
+                        android:background="@drawable/bg_input_field"
+                        android:hint="e.g. ABC College of Engineering"
+                        android:paddingStart="18dp"
+                        android:paddingEnd="18dp"
+                        android:textColor="@color/colorOnSurface"
+                        android:textColorHint="@color/colorTextHint"
+                        android:textSize="14sp" />
+
+                    <!-- Location Label -->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:fontFamily="sans-serif-medium"
+                        android:text="Location"
+                        android:textColor="@color/colorOnSurface"
+                        android:textSize="13sp"
+                        android:textStyle="bold" />
+
+                    <!-- ID preserved: locationEt -->
+                    <EditText
+                        android:id="@+id/locationEt"
+                        android:layout_width="match_parent"
+                        android:layout_height="56dp"
+                        android:layout_marginBottom="16dp"
+                        android:background="@drawable/bg_input_field"
+                        android:hint="e.g. Ground Floor, Block A"
+                        android:paddingStart="18dp"
+                        android:paddingEnd="18dp"
+                        android:textColor="@color/colorOnSurface"
+                        android:textColorHint="@color/colorTextHint"
+                        android:textSize="14sp" />
+
+                    <!-- Mobile Number Label -->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:fontFamily="sans-serif-medium"
+                        android:text="Mobile Number"
+                        android:textColor="@color/colorOnSurface"
+                        android:textSize="13sp"
+                        android:textStyle="bold" />
+
+                    <!-- ID preserved/created: ownerMobileEt -->
+                    <EditText
+                        android:id="@+id/ownerMobileEt"
+                        android:layout_width="match_parent"
+                        android:layout_height="56dp"
+                        android:layout_marginBottom="16dp"
+                        android:background="@drawable/bg_input_field"
+                        android:hint="e.g. 9876543210"
+                        android:inputType="phone"
+                        android:paddingStart="18dp"
+                        android:paddingEnd="18dp"
+                        android:textColor="@color/colorOnSurface"
+                        android:textColorHint="@color/colorTextHint"
+                        android:textSize="14sp" />
+
+                    <!-- UPI ID Label -->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:fontFamily="sans-serif-medium"
+                        android:text="UPI ID"
+                        android:textColor="@color/colorOnSurface"
+                        android:textSize="13sp"
+                        android:textStyle="bold" />
+
+                    <!-- ID preserved/created: upiIdEt -->
+                    <EditText
+                        android:id="@+id/upiIdEt"
+                        android:layout_width="match_parent"
+                        android:layout_height="56dp"
+                        android:layout_marginBottom="20dp"
+                        android:background="@drawable/bg_input_field"
+                        android:hint="e.g. canteen@ybl"
+                        android:paddingStart="18dp"
+                        android:paddingEnd="18dp"
+                        android:textColor="@color/colorOnSurface"
+                        android:textColorHint="@color/colorTextHint"
+                        android:textSize="14sp" />
+
+                    <!-- Save Button — ID preserved: saveBtn -->
+                    <Button
+                        android:id="@+id/saveBtn"
+                        android:layout_width="match_parent"
+                        android:layout_height="54dp"
+                        android:background="@drawable/bg_button_primary"
+                        android:text="Save Canteen Details"
+                        android:textAllCaps="false"
+                        android:textColor="#FFFFFF"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            </LinearLayout>
+            <!-- End canteenInfoContent -->
+
+            <!-- ID preserved/created: adminControlsLayout -->
+            <LinearLayout
+                android:id="@+id/adminControlsLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <!-- ===== SECTION 2: MENU MANAGEMENT ===== -->
+                <LinearLayout
+                    android:id="@+id/menuManagementHeader"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingStart="4dp"
+                    android:paddingBottom="12dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:background="?attr/selectableItemBackground">
+
+                    <LinearLayout
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:background="@drawable/bg_hero_icon_circle"
+                        android:backgroundTint="@color/colorSecondaryLight"
+                        android:gravity="center">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="🍔"
+                            android:textSize="16sp" />
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginStart="12dp"
+                        android:fontFamily="sans-serif-medium"
+                        android:text="Menu Management"
+                        android:textColor="@color/colorOnSurface"
+                        android:textSize="17sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/menuManagementArrow"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="4dp"
+                        android:text="▼"
+                        android:textColor="@color/colorOnSurfaceVariant"
+                        android:textSize="14sp" />
+
+                </LinearLayout>
+
+                <!-- Menu Management collapsible content -->
+                <LinearLayout
+                    android:id="@+id/menuManagementContent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="24dp"
+                    app:cardBackgroundColor="@color/colorSurface"
+                    app:cardCornerRadius="20dp"
+                    app:cardElevation="4dp">
+
+                    <!-- ID preserved: menuLayout -->
+                    <LinearLayout
+                        android:id="@+id/menuLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="20dp">
+
+                        <!-- Item Name Label -->
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="8dp"
+                            android:fontFamily="sans-serif-medium"
+                            android:text="Item Name"
+                            android:textColor="@color/colorOnSurface"
+                            android:textSize="13sp"
+                            android:textStyle="bold" />
+
+                        <!-- ID preserved: itemNameEt -->
+                        <EditText
+                            android:id="@+id/itemNameEt"
+                            android:layout_width="match_parent"
+                            android:layout_height="56dp"
+                            android:layout_marginBottom="16dp"
+                            android:background="@drawable/bg_input_field"
+                            android:hint="e.g. Veg Burger"
+                            android:paddingStart="18dp"
+                            android:paddingEnd="18dp"
+                            android:textColor="@color/colorOnSurface"
+                            android:textColorHint="@color/colorTextHint"
+                            android:textSize="14sp" />
+
+                        <!-- Price Label -->
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="8dp"
+                            android:fontFamily="sans-serif-medium"
+                            android:text="Price (₹)"
+                            android:textColor="@color/colorOnSurface"
+                            android:textSize="13sp"
+                            android:textStyle="bold" />
+
+                        <!-- ID preserved: itemPriceEt -->
+                        <EditText
+                            android:id="@+id/itemPriceEt"
+                            android:layout_width="match_parent"
+                            android:layout_height="56dp"
+                            android:layout_marginBottom="16dp"
+                            android:background="@drawable/bg_input_field"
+                            android:hint="e.g. 50"
+                            android:inputType="number"
+                            android:paddingStart="18dp"
+                            android:paddingEnd="18dp"
+                            android:textColor="@color/colorOnSurface"
+                            android:textColorHint="@color/colorTextHint"
+                            android:textSize="14sp" />
+
+                        <!-- Type Label -->
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="8dp"
+                            android:fontFamily="sans-serif-medium"
+                            android:text="Food Type"
+                            android:textColor="@color/colorOnSurface"
+                            android:textSize="13sp"
+                            android:textStyle="bold" />
+
+                        <!-- ID preserved: itemTypeSpinner -->
+                        <Spinner
+                            android:id="@+id/itemTypeSpinner"
+                            android:layout_width="match_parent"
+                            android:layout_height="56dp"
+                            android:layout_marginBottom="20dp"
+                            android:background="@drawable/bg_input_field"
+                            android:paddingStart="14dp"
+                            android:paddingEnd="14dp" />
+
+                        <!-- Add Item Button — ID preserved: addItemBtn -->
+                        <Button
+                            android:id="@+id/addItemBtn"
+                            android:layout_width="match_parent"
+                            android:layout_height="54dp"
+                            android:layout_marginBottom="20dp"
+                            android:background="@drawable/bg_button_outline"
+                            android:text="+ Add Menu Item"
+                            android:textAllCaps="false"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+
+                        <!-- Divider -->
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginBottom="12dp"
+                            android:background="@color/colorDivider" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="10dp"
+                            android:fontFamily="sans-serif-medium"
+                            android:text="Current Menu Items"
+                            android:textColor="@color/colorOnSurface"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+
+                        <!-- Button to open scrollable menu items dialog -->
+                        <Button
+                            android:id="@+id/viewItemsBtn"
+                            android:layout_width="match_parent"
+                            android:layout_height="54dp"
+                            android:background="@drawable/bg_button_outline"
+                            android:text="📋  View Current Items List"
+                            android:textAllCaps="false"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+
+                </LinearLayout>
+                <!-- End menuManagementContent -->
+
+                <!-- ===== SECTION 3: ORDER VERIFICATION ===== -->
+                <LinearLayout
+                    android:id="@+id/verifyOrdersHeader"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingStart="4dp"
+                    android:paddingBottom="12dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:background="?attr/selectableItemBackground">
+
+                    <LinearLayout
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:background="@drawable/bg_hero_icon_circle"
+                        android:backgroundTint="@color/colorTertiaryLight"
+                        android:gravity="center">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="📷"
+                            android:textSize="16sp" />
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginStart="12dp"
+                        android:fontFamily="sans-serif-medium"
+                        android:text="Verify Orders"
+                        android:textColor="@color/colorOnSurface"
+                        android:textSize="17sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/verifyOrdersArrow"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="4dp"
+                        android:text="▼"
+                        android:textColor="@color/colorOnSurfaceVariant"
+                        android:textSize="14sp" />
+
+                </LinearLayout>
+
+                <!-- Verify Orders collapsible content -->
+                <LinearLayout
+                    android:id="@+id/verifyOrdersContent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cardBackgroundColor="@color/colorSurface"
+                    app:cardCornerRadius="20dp"
+                    app:cardElevation="4dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="20dp">
+
+                        <!-- Scan Button — ID preserved: scanBtn -->
+                        <Button
+                            android:id="@+id/scanBtn"
+                            android:layout_width="match_parent"
+                            android:layout_height="54dp"
+                            android:layout_marginBottom="16dp"
+                            android:background="@drawable/bg_button_outline"
+                            android:text="📷  Scan QR Code"
+                            android:textAllCaps="false"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+
+                        <!-- Divider Row -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            android:layout_marginBottom="16dp">
+
+                            <View
+                                android:layout_width="0dp"
+                                android:layout_height="1dp"
+                                android:layout_weight="1"
+                                android:background="@color/colorDivider" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="12dp"
+                                android:layout_marginEnd="12dp"
+                                android:text="or enter manually"
+                                android:textColor="@color/colorOnSurfaceVariant"
+                                android:textSize="12sp" />
+
+                            <View
+                                android:layout_width="0dp"
+                                android:layout_height="1dp"
+                                android:layout_weight="1"
+                                android:background="@color/colorDivider" />
+
+                        </LinearLayout>
+
+                        <!-- Order ID Label -->
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="8dp"
+                            android:fontFamily="sans-serif-medium"
+                            android:text="Order ID"
+                            android:textColor="@color/colorOnSurface"
+                            android:textSize="13sp"
+                            android:textStyle="bold" />
+
+                        <!-- ID preserved: orderIdEt -->
+                        <EditText
+                            android:id="@+id/orderIdEt"
+                            android:layout_width="match_parent"
+                            android:layout_height="56dp"
+                            android:layout_marginBottom="20dp"
+                            android:background="@drawable/bg_input_field"
+                            android:hint="Enter Order ID"
+                            android:paddingStart="18dp"
+                            android:paddingEnd="18dp"
+                            android:textColor="@color/colorOnSurface"
+                            android:textColorHint="@color/colorTextHint"
+                            android:textSize="14sp" />
+
+                        <!-- Verify Button — ID preserved: verifyBtn -->
+                        <Button
+                            android:id="@+id/verifyBtn"
+                            android:layout_width="match_parent"
+                            android:layout_height="54dp"
+                            android:background="@drawable/bg_button_primary"
+                            android:text="✓  Mark as Completed"
+                            android:textAllCaps="false"
+                            android:textColor="#FFFFFF"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+
+                </LinearLayout>
+                <!-- End verifyOrdersContent -->
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

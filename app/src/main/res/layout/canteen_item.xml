@@ -1,30 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginStart="6dp"
-    android:layout_marginTop="6dp"
-    android:layout_marginEnd="6dp"
-    android:layout_marginBottom="10dp"
-    app:cardBackgroundColor="#FFFFFF"
-    app:cardCornerRadius="24dp"
-    app:cardElevation="4dp">
+    android:layout_marginStart="4dp"
+    android:layout_marginTop="5dp"
+    android:layout_marginEnd="4dp"
+    android:layout_marginBottom="8dp"
+    app:cardBackgroundColor="@color/colorSurface"
+    app:cardCornerRadius="20dp"
+    app:cardElevation="3dp"
+    app:cardUseCompatPadding="true">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center_vertical"
         android:orientation="horizontal"
         android:padding="16dp">
 
-        <!-- Left Decorative Icon Section -->
-
+        <!-- ===== CANTEEN ICON CONTAINER ===== -->
         <androidx.cardview.widget.CardView
-            android:layout_width="72dp"
-            android:layout_height="72dp"
-            app:cardBackgroundColor="#F4EDE7"
-            app:cardCornerRadius="20dp"
+            android:layout_width="68dp"
+            android:layout_height="68dp"
+            app:cardBackgroundColor="@color/colorFoodIconBg"
+            app:cardCornerRadius="18dp"
             app:cardElevation="0dp">
 
             <LinearLayout
@@ -42,83 +42,87 @@
 
         </androidx.cardview.widget.CardView>
 
-        <!-- Content Section -->
-
+        <!-- ===== CONTENT ===== -->
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="14dp"
             android:layout_weight="1"
             android:orientation="vertical">
 
-            <!-- Canteen Name -->
-
+            <!-- Canteen Name — ID preserved: nameTv -->
             <TextView
                 android:id="@+id/nameTv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Canteen Name"
-                android:textColor="#2B2D42"
-                android:textSize="19sp"
-                android:textStyle="bold"
-                android:maxLines="1" />
+                android:fontFamily="sans-serif-medium"
+                android:maxLines="1"
+                android:text="Main Canteen"
+                android:textColor="@color/colorOnSurface"
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
-            <!-- College Name -->
-
+            <!-- College Name — ID preserved: collegeTv -->
             <TextView
                 android:id="@+id/collegeTv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="6dp"
-                android:text="College Name"
-                android:textColor="#6B7280"
-                android:textSize="14sp"
-                android:maxLines="1" />
+                android:layout_marginTop="4dp"
+                android:maxLines="1"
+                android:text="ABC College of Engineering"
+                android:textColor="@color/colorOnSurfaceVariant"
+                android:textSize="13sp" />
 
-            <!-- Location -->
-
+            <!-- Location Row — ID preserved: locationTv -->
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="6dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="📍"
-                    android:textSize="12sp"
+                <ImageView
+                    android:layout_width="13dp"
+                    android:layout_height="13dp"
+                    android:src="@drawable/ic_location"
+                    android:contentDescription="Location"
                     android:layout_marginEnd="4dp" />
 
                 <TextView
                     android:id="@+id/locationTv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Location"
-                    android:textColor="#8A8A8A"
-                    android:textSize="13sp"
-                    android:maxLines="1" />
+                    android:maxLines="1"
+                    android:text="Ground Floor, Block A"
+                    android:textColor="@color/colorOnSurfaceVariant"
+                    android:textSize="12sp" />
 
             </LinearLayout>
 
-            <!-- Optional Status Badge -->
-
+            <!-- Status Badge -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:background="#E9F8EE"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/bg_badge_veg"
                 android:paddingStart="10dp"
-                android:paddingTop="4dp"
+                android:paddingTop="3dp"
                 android:paddingEnd="10dp"
-                android:paddingBottom="4dp"
+                android:paddingBottom="3dp"
                 android:text="Open Now"
-                android:textColor="#2E7D32"
+                android:textColor="@color/colorBadgeVeg"
                 android:textSize="11sp"
                 android:textStyle="bold" />
 
         </LinearLayout>
+
+        <!-- Arrow Indicator -->
+        <ImageView
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_marginStart="8dp"
+            android:src="@drawable/ic_arrow_right"
+            android:contentDescription="View menu" />
 
     </LinearLayout>
 

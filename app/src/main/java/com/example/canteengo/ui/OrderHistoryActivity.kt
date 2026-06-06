@@ -5,7 +5,9 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.ArrayAdapter
 import android.widget.ListView
+import android.widget.TextView
 import android.widget.Toast
+import androidx.cardview.widget.CardView
 import com.example.canteengo.R
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -15,27 +17,56 @@ import java.util.Locale
 
 class OrderHistoryActivity : Activity() {
 
-    lateinit var listView: ListView
+    lateinit var orderListView: ListView
+    lateinit var sectionHeaderTv: TextView
+    lateinit var pendingOrdersCard: CardView
+    lateinit var completedOrdersCard: CardView
 
-    private val orderList = ArrayList<String>()
+    private var showCompleted = false
 
-    private val orderIds = ArrayList<String>()
+    private val allOrders = ArrayList<OrderData>()
 
-    private val amounts = ArrayList<Int>()
+    data class OrderData(
+        val id: String,
+        val amount: Int,
+        val status: String,
+        val text: String,
+        val paymentStatus: String
+    )
+
+    private val displayedList = ArrayList<String>()
+    private val displayedIds = ArrayList<String>()
+    private val displayedAmounts = ArrayList<Int>()
+    private val displayedPaymentStatuses = ArrayList<String>()
+
+    private var ordersListener: com.google.firebase.firestore.ListenerRegistration? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.activity_order_history)
 
-        listView = findViewById(R.id.orderListView)
+        orderListView = findViewById(R.id.orderListView)
+        sectionHeaderTv = findViewById(R.id.sectionHeaderTv)
+        pendingOrdersCard = findViewById(R.id.pendingOrdersCard)
+        completedOrdersCard = findViewById(R.id.completedOrdersCard)
 
         loadOrders()
 
-        listView.setOnItemClickListener { _, _, position, _ ->
+        pendingOrdersCard.setOnClickListener {
+            showCompleted = false
+            updateUI()
+        }
 
-            if (position >= orderIds.size ||
-                position >= amounts.size
+        completedOrdersCard.setOnClickListener {
+            showCompleted = true
+            updateUI()
+        }
+
+        orderListView.setOnItemClickListener { _, _, position, _ ->
+
+            if (position >= displayedIds.size ||
+                position >= displayedAmounts.size
             ) {
                 return@setOnItemClickListener
             }
@@ -45,16 +76,63 @@ class OrderHistoryActivity : Activity() {
 
             intent.putExtra(
                 "orderId",
-                orderIds[position]
+                displayedIds[position]
             )
 
             intent.putExtra(
                 "amount",
-                amounts[position]
+                displayedAmounts[position]
+            )
+
+            intent.putExtra(
+                "paymentStatus",
+                displayedPaymentStatuses[position]
             )
 
             startActivity(intent)
         }
+    }
+
+    private fun updateUI() {
+        displayedList.clear()
+        displayedIds.clear()
+        displayedAmounts.clear()
+        displayedPaymentStatuses.clear()
+
+        if (showCompleted) {
+            sectionHeaderTv.text = "Completed Orders"
+            for (order in allOrders) {
+                if (order.status.equals("completed", ignoreCase = true)) {
+                    displayedList.add(order.text)
+                    displayedIds.add(order.id)
+                    displayedAmounts.add(order.amount)
+                    displayedPaymentStatuses.add(order.paymentStatus)
+                }
+            }
+            if (displayedList.isEmpty()) {
+                displayedList.add("No completed orders 📦")
+            }
+        } else {
+            sectionHeaderTv.text = "Pending Orders"
+            for (order in allOrders) {
+                if (!order.status.equals("completed", ignoreCase = true)) {
+                    displayedList.add(order.text)
+                    displayedIds.add(order.id)
+                    displayedAmounts.add(order.amount)
+                    displayedPaymentStatuses.add(order.paymentStatus)
+                }
+            }
+            if (displayedList.isEmpty()) {
+                displayedList.add("No pending orders 📦")
+            }
+        }
+
+        val adapter = ArrayAdapter(
+            this,
+            android.R.layout.simple_list_item_1,
+            displayedList
+        )
+        orderListView.adapter = adapter
     }
 
     private fun loadOrders() {
@@ -82,66 +160,60 @@ class OrderHistoryActivity : Activity() {
             Locale.getDefault()
         )
 
-        db.collection("orders")
+        ordersListener = db.collection("orders")
             .whereEqualTo("userId", currentUser.uid)
             .orderBy(
                 "timestamp",
                 com.google.firebase.firestore.Query.Direction.DESCENDING
             )
-            .get()
-            .addOnSuccessListener { result ->
+            .addSnapshotListener { result, e ->
 
-                orderList.clear()
-                orderIds.clear()
-                amounts.clear()
-
-                if (result.isEmpty) {
-
-                    orderList.add("No orders found 📦")
+                if (e != null) {
+                    Toast.makeText(
+                        this,
+                        "Error: ${e.message}",
+                        Toast.LENGTH_LONG
+                    ).show()
+                    return@addSnapshotListener
                 }
 
-                for (doc in result) {
+                allOrders.clear()
 
-                    val id = doc.id
+                if (result != null) {
+                    for (doc in result) {
 
-                    val amount =
-                        (doc.getLong("total") ?: 0).toInt()
+                        val id = doc.id
 
-                    val status =
-                        doc.getString("status")
-                            ?: "pending"
+                        val amount =
+                            (doc.getLong("total") ?: 0).toInt()
 
-                    val time =
-                        doc.getLong("timestamp")
-                            ?: System.currentTimeMillis()
+                        val status =
+                            doc.getString("status")
+                                ?: "pending"
 
-                    val date =
-                        formatter.format(Date(time))
+                        val paymentStatus =
+                            doc.getString("paymentStatus")
+                                ?: if (status.equals("paid", ignoreCase = true)) "PAID" else "NOT PAID"
 
-                    orderList.add(
-                        "Rs.$amount | ${status.uppercase()}\n$date"
-                    )
+                        val time =
+                            doc.getLong("timestamp")
+                                ?: System.currentTimeMillis()
 
-                    orderIds.add(id)
+                        val date =
+                            formatter.format(Date(time))
 
-                    amounts.add(amount)
+                        val itemText = "Rs.$amount | ${status.uppercase()}\n$date"
+
+                        allOrders.add(OrderData(id, amount, status, itemText, paymentStatus))
+                    }
                 }
 
-                val adapter = ArrayAdapter(
-                    this,
-                    android.R.layout.simple_list_item_1,
-                    orderList
-                )
-
-                listView.adapter = adapter
+                updateUI()
             }
-            .addOnFailureListener { e ->
+    }
 
-                Toast.makeText(
-                    this,
-                    "Error: ${e.message}",
-                    Toast.LENGTH_LONG
-                ).show()
-            }
+    override fun onDestroy() {
+        super.onDestroy()
+        ordersListener?.remove()
     }
 }

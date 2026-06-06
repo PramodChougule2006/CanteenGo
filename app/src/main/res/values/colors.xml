@@ -1,13 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="purple_200">#FFBB86FC</color>
-    <color name="purple_500">#FF6200EE</color>
-    <color name="purple_700">#FF3700B3</color>
-    <color name="teal_200">#FF03DAC5</color>
-    <color name="teal_700">#FF018786</color>
+
+    <!-- ===================== PRIMARY — Warm Orange ===================== -->
+    <color name="colorPrimary">#FF6B35</color>
+    <color name="colorPrimaryDark">#E55A2B</color>
+    <color name="colorPrimaryLight">#FFE8DC</color>
+    <color name="colorOnPrimary">#FFFFFF</color>
+
+    <!-- ===================== SECONDARY — Warm Amber ===================== -->
+    <color name="colorSecondary">#FFB347</color>
+    <color name="colorSecondaryLight">#FFF3E0</color>
+    <color name="colorOnSecondary">#FFFFFF</color>
+
+    <!-- ===================== TERTIARY — Fresh Green ===================== -->
+    <color name="colorTertiary">#4CAF50</color>
+    <color name="colorTertiaryLight">#E8F5E9</color>
+    <color name="colorOnTertiary">#FFFFFF</color>
+
+    <!-- ===================== BACKGROUNDS ===================== -->
+    <color name="colorBackground">#FFF8F3</color>
+    <color name="colorSurface">#FFFFFF</color>
+    <color name="colorSurfaceVariant">#FFF4EE</color>
+
+    <!-- ===================== TEXT / ON-SURFACE ===================== -->
+    <color name="colorOnBackground">#1A1A2E</color>
+    <color name="colorOnSurface">#1A1A2E</color>
+    <color name="colorOnSurfaceVariant">#6B7280</color>
+    <color name="colorTextHint">#AAAAAA</color>
+
+    <!-- ===================== OUTLINE / DIVIDERS ===================== -->
+    <color name="colorOutline">#E8E0DA</color>
+    <color name="colorDivider">#F0EBE6</color>
+
+    <!-- ===================== STATUS COLORS ===================== -->
+    <color name="colorSuccess">#4CAF50</color>
+    <color name="colorSuccessLight">#E8F5E9</color>
+    <color name="colorError">#E53935</color>
+    <color name="colorErrorLight">#FFEBEE</color>
+    <color name="colorWarning">#FF9800</color>
+    <color name="colorWarningLight">#FFF3E0</color>
+
+    <!-- ===================== SPECIAL FOOD APP ACCENTS ===================== -->
+    <color name="colorCardShadow">#1AFF6B35</color>
+    <color name="colorHeroBannerStart">#FF6B35</color>
+    <color name="colorHeroBannerEnd">#FF8C42</color>
+    <color name="colorBadgeVeg">#2E7D32</color>
+    <color name="colorBadgeVegBg">#E8F5E9</color>
+    <color name="colorBadgeNonVeg">#C62828</color>
+    <color name="colorBadgeNonVegBg">#FFEBEE</color>
+    <color name="colorFoodIconBg">#FFF1E8</color>
+    <color name="colorAmberIconBg">#FFF3E0</color>
+
+    <!-- ===================== LEGACY (kept for compatibility) ===================== -->
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="primaryColor">#FF5722</color>
+    <color name="primaryColor">#FF6B35</color>
     <color name="secondaryColor">#4CAF50</color>
-    <color name="backgroundColor">#F9F9F9</color>
+    <color name="backgroundColor">#FFF8F3</color>
+
 </resources>

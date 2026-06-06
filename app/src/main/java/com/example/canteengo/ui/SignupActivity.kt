@@ -40,6 +40,13 @@ class SignupActivity : Activity() {
         val spinner =
             findViewById<Spinner>(R.id.roleSpinner)
 
+        val alreadyHaveAccountTv =
+            findViewById<android.widget.TextView>(R.id.alreadyHaveAccountTv)
+
+        alreadyHaveAccountTv.setOnClickListener {
+            finish()
+        }
+
         val roles = arrayOf(
             "User",
             "Admin"
